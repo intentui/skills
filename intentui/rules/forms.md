@@ -57,11 +57,51 @@ import { Button } from "@/components/ui/button"
 </div>
 ```
 
+### data-slot="control" for custom rows inside Fieldset
+
+Fieldset uses `[&>*+[data-slot=control]]:mt-6` for spacing. TextField and other form components already have `data-slot="control"`, but if you place a custom `<div>` inside a Fieldset (e.g. for a checkbox + link row), add `data-slot="control"` so it gets the correct spacing.
+
+```tsx
+// ✅ Correct — full login form with Fieldset
+<Fieldset>
+  <Legend>Log in</Legend>
+  <Text>Welcome back! Enter your credentials to access your account.</Text>
+
+  <TextField isRequired name="email" type="email">
+    <Label>Email</Label>
+    <Input placeholder="you@example.com" />
+    <FieldError />
+  </TextField>
+
+  <TextField isRequired name="password" type="password">
+    <Label>Password</Label>
+    <Input placeholder="Enter your password" />
+    <FieldError />
+  </TextField>
+
+  <div data-slot="control" className="flex items-center justify-between">
+    <Checkbox name="remember">Remember me</Checkbox>
+    <Link href="/forgot-password" className="text-sm">
+      Forgot password?
+    </Link>
+  </div>
+</Fieldset>
+
+// ❌ Wrong — div without data-slot="control" won't get Fieldset spacing
+<div className="flex items-center justify-between">
+  <Checkbox name="remember">Remember me</Checkbox>
+  <Link href="/forgot-password" className="text-sm">
+    Forgot password?
+  </Link>
+</div>
+```
+
 ### Why?
 
 - **`<Fieldset>`** groups related fields and handles spacing automatically (`[&>*+[data-slot=control]]:mt-6`)
 - **`<Legend>`** is the correct heading for a fieldset — not `<h1>` or `<Heading>`
 - **`<Text>`** renders with `data-slot="text"` so Fieldset applies `*:data-[slot=text]:mt-1` spacing automatically
+- **`data-slot="control"`** on custom divs inside Fieldset ensures they receive the same `mt-6` spacing as form fields
 - **`<FieldGroup>`** wraps multiple fields with `space-y-6` — use it when you need to group fields inside a Fieldset
 - No need to manually add `space-y-6` to wrapper divs — Fieldset and FieldGroup handle spacing
 
