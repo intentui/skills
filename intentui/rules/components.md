@@ -15,7 +15,7 @@ area-chart, avatar, badge, bar-chart, bar-list, breadcrumbs, button, button-grou
 | `<select>` | `<Select>` | `@/components/ui/select` |
 | `<textarea>` | `<Textarea>` | `@/components/ui/textarea` |
 | `<table>` | `<Table>` | `@/components/ui/table` |
-| `<a>` | `<Link>` | `@/components/ui/link` |
+| `<a>` (standalone) | `<Link>` | `@/components/ui/link` |
 | `<dialog>` | `<Modal>` | `@/components/ui/modal` |
 | `<h1>`–`<h6>` | `<Heading>` | `@/components/ui/heading` |
 | `<p>`, `<span>` for styled text | `<Text>` | `@/components/ui/text` |
@@ -42,7 +42,10 @@ area-chart, avatar, badge, bar-chart, bar-list, breadcrumbs, button, button-grou
 
 ## Text, TextLink, Strong, and Code
 
-The `text.tsx` component exports `Text`, `TextLink`, `Strong`, and `Code`. When using `<Text>` and you need a link inside it, use `<TextLink>` — not a raw `<a>` or `<Link>`.
+The `text.tsx` component exports `Text`, `TextLink`, `Strong`, and `Code`. **CRITICAL: When you need a link inside `<Text>`, you MUST use `<TextLink>` — NEVER use `<Link>` or `<a>` inside `<Text>`.** `<Link>` is only for standalone links outside of `<Text>`.
+
+- **Inside `<Text>`** → use `<TextLink>` (from `@/components/ui/text`)
+- **Outside `<Text>` (standalone)** → use `<Link>` (from `@/components/ui/link`)
 
 ```tsx
 import { Text, TextLink, Strong, Code } from "@/components/ui/text"
@@ -56,6 +59,11 @@ import { Text, TextLink, Strong, Code } from "@/components/ui/text"
 // ✅ Strong and Code inside Text
 <Text>
   Run <Code>npm install</Code> to get started. See <Strong>Getting Started</Strong> for more info.
+</Text>
+
+// ❌ Wrong — Link inside Text (MUST use TextLink instead)
+<Text>
+  By signing up, you agree to our <Link href="/terms">Terms of Service</Link>.
 </Text>
 
 // ❌ Wrong — raw <a> inside Text
