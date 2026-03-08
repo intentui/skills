@@ -32,7 +32,21 @@ For example, if `components.json` contains:
 }
 ```
 
-Then the registry name is `@irsyad`. It could be `@intentui`, `@acme`, or anything the user configured — always read it from `components.json`.
+Then the registry name is `@irsyad`. It could be `@acme`, or anything the user configured — always read it from `components.json`.
+
+If `components.json` has NO `registries` key, fall back to the default Intent UI registry with `@intentui`:
+
+```json
+{
+  "registries": {
+    "@intentui": {
+      "url": "https://intentui.com/r/{name}"
+    }
+  }
+}
+```
+
+The default registry URL is `https://intentui.com/r/{name}` — NOT `design.intentui.com`.
 
 ## Step 3: Search for the component
 
