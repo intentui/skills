@@ -15,38 +15,20 @@ Check which lockfile exists in the project root to determine the correct runner:
 
 ## Step 2: Detect the registry name
 
-Read `components.json` and look at the `registries` key. The registry name is the key defined there.
+Read `components.json` and check if a `registries` key exists.
 
-For example, if `components.json` contains:
+- **If `registries` exists** — use the key defined there (e.g. `@irsyad`, `@acme`, etc.)
+- **If `registries` does NOT exist** — use `@intentui` as the default. Do NOT modify `components.json` to add a registry.
 
-```json
-{
-  "registries": {
-    "@irsyad": {
-      "url": "https://design.intentui.com/r/{name}",
-      "headers": {
-        "Authorization": "Bearer ${REGISTRY_TOKEN}"
-      }
-    }
-  }
-}
+```bash
+# Default (no registries in components.json) → use @intentui
+bunx --bun shadcn@latest add @intentui/button
+
+# Custom registry defined (e.g. @irsyad) → use @irsyad
+bunx --bun shadcn@latest add @irsyad/button
 ```
 
-Then the registry name is `@irsyad`. It could be `@acme`, or anything the user configured — always read it from `components.json`.
-
-If `components.json` has NO `registries` key, fall back to the default Intent UI registry with `@intentui`:
-
-```json
-{
-  "registries": {
-    "@intentui": {
-      "url": "https://intentui.com/r/{name}"
-    }
-  }
-}
-```
-
-The default registry URL is `https://intentui.com/r/{name}` — NOT `design.intentui.com`.
+IMPORTANT: Never add or modify the `registries` key in `components.json`. Just read it — if it's there, use it. If it's not, default to `@intentui`.
 
 ## Step 3: Search for the component
 
