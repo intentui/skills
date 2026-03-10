@@ -169,6 +169,13 @@ import { Label, Description } from "@/components/ui/field"
 <input type="text" placeholder="Enter your name" />
 ```
 
+### TextField scope
+
+Use `TextField` for text-like values only, such as `text`, `email`, `password`, `search`, `tel`, and `url`.
+
+- Do not use `TextField` for numeric values like price, amount, quantity, or percentage. Use `NumberField` instead.
+- Do not use `TextField` with `<Input type="date" />`. Use `DatePicker` instead.
+
 ### isRequired rule
 
 When `isRequired` is set on a field component, you MUST include `<FieldError />` as a child. This ensures validation errors are displayed to the user.
@@ -248,12 +255,27 @@ import { Textarea } from "@/components/ui/textarea"
 
 ```tsx
 import { NumberField } from "@/components/ui/number-field"
+import { FieldError, Label } from "@/components/ui/field"
+import { NumberInput } from "@/components/ui/number-field"
 
 // ✅ Correct
-<NumberField>
-  <Label>Quantity</Label>
-  <Input />
+<NumberField name="price">
+  <Label>Price</Label>
+  <NumberInput />
 </NumberField>
+
+// ✅ Required
+<NumberField isRequired name="price">
+  <Label>Price</Label>
+  <NumberInput />
+  <FieldError />
+</NumberField>
+
+// ❌ Wrong — do not use TextField/Input type="number" for numeric values
+<TextField name="price">
+  <Label>Price</Label>
+  <Input type="number" />
+</TextField>
 ```
 
 ## Search field
@@ -283,11 +305,24 @@ import { Switch } from "@/components/ui/switch"
 import { DatePicker } from "@/components/ui/date-picker"
 import { DateRangePicker } from "@/components/ui/date-range-picker"
 import { TimeField } from "@/components/ui/time-field"
+import { FieldError, Label } from "@/components/ui/field"
 
 // ✅ Correct
-<DatePicker>
+<DatePicker name="startDate">
   <Label>Start date</Label>
 </DatePicker>
+
+// ✅ Required
+<DatePicker isRequired name="startDate">
+  <Label>Start date</Label>
+  <FieldError />
+</DatePicker>
+
+// ❌ Wrong — do not use TextField/Input type="date" for dates
+<TextField name="startDate">
+  <Label>Start date</Label>
+  <Input type="date" />
+</TextField>
 ```
 
 ## Key patterns
@@ -295,7 +330,8 @@ import { TimeField } from "@/components/ui/time-field"
 1. **Fieldset + Legend** for grouping related fields — not `<div>` + `<h1>`
 2. **Text** for form descriptions — not `<p>`
 3. **Label and Description** come from `@/components/ui/field` — they work with all form components
-4. **Controlled vs uncontrolled**: Use `value`/`onChange` for controlled, `defaultValue` for uncontrolled
-5. **Validation**: Use `isRequired`, `isInvalid`, `validate` props — not custom validation wrappers
-6. **Disabled/readonly**: Use `isDisabled`, `isReadOnly` props (camelCase, not HTML attributes)
-7. **"use client"** directive: Required when using form components with state/hooks
+4. **Use the correct field primitive**: `TextField` for text-like values, `NumberField` for numeric values, `DatePicker` for calendar dates
+5. **Controlled vs uncontrolled**: Use `value`/`onChange` for controlled, `defaultValue` for uncontrolled
+6. **Validation**: Use `isRequired`, `isInvalid`, `validate` props — not custom validation wrappers
+7. **Disabled/readonly**: Use `isDisabled`, `isReadOnly` props (camelCase, not HTML attributes)
+8. **"use client"** directive: Required when using form components with state/hooks

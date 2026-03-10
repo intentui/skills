@@ -11,7 +11,9 @@ area-chart, avatar, badge, bar-chart, bar-list, breadcrumbs, button, button-grou
 | Instead of | Use | Import from |
 |---|---|---|
 | `<button>` | `<Button>` | `@/components/ui/button` |
-| `<input>` | `<Input>` inside `<TextField>` | `@/components/ui/input`, `@/components/ui/text-field` |
+| `<input>` | `<Input>` inside `<TextField>` for text-like values only | `@/components/ui/input`, `@/components/ui/text-field` |
+| `<input type="number">` | `<NumberInput>` inside `<NumberField>` | `@/components/ui/number-field` |
+| `<input type="date">` | `<DatePicker>` | `@/components/ui/date-picker` |
 | `<select>` | `<Select>` | `@/components/ui/select` |
 | `<textarea>` | `<Textarea>` | `@/components/ui/textarea` |
 | `<table>` | `<Table>` | `@/components/ui/table` |
