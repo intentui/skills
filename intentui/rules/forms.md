@@ -114,6 +114,31 @@ Fieldset uses `[&>*+[data-slot=control]]:mt-6` for spacing. TextField and other 
 - `FieldGroup` — wraps multiple fields with spacing (`space-y-6`)
 - `Legend` — heading for a Fieldset
 
+## Forbidden input types
+
+Never use `type="number"` or `type="date"` on `<Input />`. These HTML input types have inconsistent browser behavior and poor accessibility. Use the dedicated Intent UI components instead:
+
+- **`type="number"`** → Use `NumberField` with `NumberInput` from `@/components/ui/number-field`
+- **`type="date"`** → Use `DatePicker` from `@/components/ui/date-picker`
+
+```tsx
+// ❌ NEVER do this
+<Input type="number" />
+<Input type="date" />
+
+// ✅ Use NumberField for numeric values
+<NumberField name="quantity">
+  <Label>Quantity</Label>
+  <NumberInput />
+</NumberField>
+
+// ✅ Use DatePicker for dates
+<DatePicker name="startDate">
+  <Label>Start date</Label>
+  <DatePickerTrigger />
+</DatePicker>
+```
+
 ## Text input
 
 Use `TextField` with `Input`, `Label`, and `Description`:
@@ -310,11 +335,13 @@ import { FieldError, Label } from "@/components/ui/field"
 // ✅ Correct
 <DatePicker name="startDate">
   <Label>Start date</Label>
+  <DatePickerTrigger />
 </DatePicker>
 
 // ✅ Required
 <DatePicker isRequired name="startDate">
   <Label>Start date</Label>
+  <DatePickerTrigger />
   <FieldError />
 </DatePicker>
 
@@ -324,6 +351,79 @@ import { FieldError, Label } from "@/components/ui/field"
   <Input type="date" />
 </TextField>
 ```
+
+## Accessibility: aria-label when no visible Label
+
+Every form field, `GridList`, and `Table` **must** have a label. If there is no visible `<Label>`, you **must** provide an `aria-label` prop.
+
+```tsx
+// ✅ Visible label — no aria-label needed
+<TextField>
+  <Label>Email</Label>
+  <Input type="email" />
+</TextField>
+
+// ✅ No visible label — aria-label required
+<TextField aria-label="Email">
+  <Input type="email" />
+</TextField>
+
+// ✅ SearchField without visible label
+<SearchField aria-label="Search products">
+  <Input />
+</SearchField>
+
+// ✅ NumberField without visible label
+<NumberField aria-label="Quantity">
+  <NumberInput />
+</NumberField>
+
+// ✅ Select without visible label
+<Select aria-label="Sort by">
+  <SelectTrigger />
+  <SelectContent>
+    <SelectItem id="newest">Newest</SelectItem>
+    <SelectItem id="oldest">Oldest</SelectItem>
+  </SelectContent>
+</Select>
+
+// ✅ GridList must have aria-label
+<GridList aria-label="Shopping cart items">
+  <GridListItem>Item 1</GridListItem>
+  <GridListItem>Item 2</GridListItem>
+</GridList>
+
+// ✅ Table must have aria-label
+<Table aria-label="Users">
+  <TableHeader>
+    <TableColumn>Name</TableColumn>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>John</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+// ❌ Wrong — no label and no aria-label
+<TextField>
+  <Input type="email" />
+</TextField>
+
+// ❌ Wrong — GridList without aria-label
+<GridList>
+  <GridListItem>Item 1</GridListItem>
+</GridList>
+
+// ❌ Wrong — Table without aria-label
+<Table>
+  <TableHeader>
+    <TableColumn>Name</TableColumn>
+  </TableHeader>
+</Table>
+```
+
+This rule applies to **all** form components: `TextField`, `NumberField`, `SearchField`, `Select`, `DatePicker`, `DateRangePicker`, `TimeField`, `CheckboxGroup`, `RadioGroup`, `ComboBox`, `TagField`, as well as `GridList` and `Table`.
 
 ## Key patterns
 
