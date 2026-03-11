@@ -226,11 +226,66 @@ import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/u
   </SelectContent>
 </Select>
 
+// ✅ Controlled — use value/onChange (not selectedKey/onSelectionChange)
+<Select value={country} onChange={setCountry}>
+  <Label>Country</Label>
+  <SelectTrigger />
+  <SelectContent>
+    <SelectItem id="us">United States</SelectItem>
+    <SelectItem id="uk">United Kingdom</SelectItem>
+  </SelectContent>
+</Select>
+
+// ❌ Wrong — selectedKey/onSelectionChange are deprecated
+<Select selectedKey={country} onSelectionChange={setCountry}>
+  ...
+</Select>
+
 // ❌ Wrong — never use raw select
 <select>
   <option value="us">United States</option>
 </select>
 ```
+
+## ComboBox
+
+```tsx
+import { ComboBox, ComboBoxInput, ComboBoxContent, ComboBoxItem } from "@/components/ui/combo-box"
+
+// ✅ Correct
+<ComboBox>
+  <Label>Framework</Label>
+  <ComboBoxInput />
+  <ComboBoxContent>
+    <ComboBoxItem id="react">React</ComboBoxItem>
+    <ComboBoxItem id="vue">Vue</ComboBoxItem>
+  </ComboBoxContent>
+</ComboBox>
+
+// ✅ Controlled — use value/onChange (not selectedKey/onSelectionChange)
+<ComboBox value={framework} onChange={setFramework}>
+  <Label>Framework</Label>
+  <ComboBoxInput />
+  <ComboBoxContent>
+    <ComboBoxItem id="react">React</ComboBoxItem>
+    <ComboBoxItem id="vue">Vue</ComboBoxItem>
+  </ComboBoxContent>
+</ComboBox>
+
+// ❌ Wrong — selectedKey/onSelectionChange are deprecated
+<ComboBox selectedKey={framework} onSelectionChange={setFramework}>
+  ...
+</ComboBox>
+```
+
+## Deprecated props for Select and ComboBox
+
+`selectedKey` and `onSelectionChange` are **deprecated**. Always use `value` and `onChange` instead.
+
+| Deprecated | Use instead |
+|---|---|
+| `selectedKey` | `value` |
+| `onSelectionChange` | `onChange` |
 
 ## Checkbox
 
