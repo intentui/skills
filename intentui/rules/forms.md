@@ -236,8 +236,23 @@ import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/u
   </SelectContent>
 </Select>
 
+// ✅ Uncontrolled — use defaultValue (never defaultSelectedKey)
+<Select defaultValue="us">
+  <Label>Country</Label>
+  <SelectTrigger />
+  <SelectContent>
+    <SelectItem id="us">United States</SelectItem>
+    <SelectItem id="uk">United Kingdom</SelectItem>
+  </SelectContent>
+</Select>
+
 // ❌ Wrong — selectedKey/onSelectionChange are deprecated
 <Select selectedKey={country} onSelectionChange={setCountry}>
+  ...
+</Select>
+
+// ❌ Wrong — never use defaultSelectedKey
+<Select defaultSelectedKey="us">
   ...
 </Select>
 
@@ -272,20 +287,36 @@ import { ComboBox, ComboBoxInput, ComboBoxContent, ComboBoxItem } from "@/compon
   </ComboBoxContent>
 </ComboBox>
 
+// ✅ Uncontrolled — use defaultValue (never defaultSelectedKey)
+<ComboBox defaultValue="react">
+  <Label>Framework</Label>
+  <ComboBoxInput />
+  <ComboBoxContent>
+    <ComboBoxItem id="react">React</ComboBoxItem>
+    <ComboBoxItem id="vue">Vue</ComboBoxItem>
+  </ComboBoxContent>
+</ComboBox>
+
 // ❌ Wrong — selectedKey/onSelectionChange are deprecated
 <ComboBox selectedKey={framework} onSelectionChange={setFramework}>
+  ...
+</ComboBox>
+
+// ❌ Wrong — never use defaultSelectedKey
+<ComboBox defaultSelectedKey="react">
   ...
 </ComboBox>
 ```
 
 ## Deprecated props for Select and ComboBox
 
-`selectedKey` and `onSelectionChange` are **deprecated**. Always use `value` and `onChange` instead.
+`selectedKey`, `onSelectionChange`, and `defaultSelectedKey` are **deprecated**. Always use `value`/`onChange` for controlled state and `defaultValue` for uncontrolled state instead.
 
 | Deprecated | Use instead |
 |---|---|
 | `selectedKey` | `value` |
 | `onSelectionChange` | `onChange` |
+| `defaultSelectedKey` | `defaultValue` |
 
 ## Checkbox
 
