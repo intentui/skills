@@ -20,45 +20,45 @@ Never use raw Tailwind color utilities. This includes ANY color from: red, orang
 
 ### Text colors
 
-| For | Use |
-|---|---|
-| Default text | `text-fg` |
-| Muted/secondary text | `text-muted-fg` |
-| Primary colored text | `text-primary` |
-| Primary subtle text | `text-primary-subtle-fg` |
-| Success text | `text-success` or `text-success-subtle-fg` |
-| Danger/error text | `text-danger` or `text-danger-subtle-fg` |
-| Warning text | `text-warning` or `text-warning-subtle-fg` |
-| Info text | `text-info` or `text-info-subtle-fg` |
-| Foreground on primary bg | `text-primary-fg` |
-| Foreground on secondary bg | `text-secondary-fg` |
-| Foreground on overlay bg | `text-overlay-fg` |
-| Foreground on accent bg | `text-accent-fg` |
-| Foreground on navbar bg | `text-navbar-fg` |
-| Foreground on sidebar bg | `text-sidebar-fg` |
+| For                        | Use                                        |
+|----------------------------|--------------------------------------------|
+| Default text               | `text-fg`                                  |
+| Muted/secondary text       | `text-muted-fg`                            |
+| Primary colored text       | `text-primary`                             |
+| Primary subtle text        | `text-primary-subtle-fg`                   |
+| Success text               | `text-success` or `text-success-subtle-fg` |
+| Danger/error text          | `text-danger` or `text-danger-subtle-fg`   |
+| Warning text               | `text-warning` or `text-warning-subtle-fg` |
+| Info text                  | `text-info` or `text-info-subtle-fg`       |
+| Foreground on primary bg   | `text-primary-fg`                          |
+| Foreground on secondary bg | `text-secondary-fg`                        |
+| Foreground on overlay bg   | `text-overlay-fg`                          |
+| Foreground on accent bg    | `text-accent-fg`                           |
+| Foreground on navbar bg    | `text-navbar-fg`                           |
+| Foreground on sidebar bg   | `text-sidebar-fg`                          |
 
 ### Background colors
 
-| For | Use |
-|---|---|
-| Page background | `bg-bg` |
-| Primary background | `bg-primary` |
-| Secondary background | `bg-secondary` |
-| Muted background | `bg-muted` |
-| Accent background | `bg-accent` |
-| Overlay/modal background | `bg-overlay` |
-| Success background | `bg-success` or `bg-success-subtle` |
-| Danger background | `bg-danger` or `bg-danger-subtle` |
-| Warning background | `bg-warning` or `bg-warning-subtle` |
-| Info background | `bg-info` or `bg-info-subtle` |
+| For                      | Use                                 |
+|--------------------------|-------------------------------------|
+| Page background          | `bg-bg`                             |
+| Primary background       | `bg-primary`                        |
+| Secondary background     | `bg-secondary`                      |
+| Muted background         | `bg-muted`                          |
+| Accent background        | `bg-accent`                         |
+| Overlay/modal background | `bg-overlay`                        |
+| Success background       | `bg-success` or `bg-success-subtle` |
+| Danger background        | `bg-danger` or `bg-danger-subtle`   |
+| Warning background       | `bg-warning` or `bg-warning-subtle` |
+| Info background          | `bg-info` or `bg-info-subtle`       |
 
 ### Border & ring colors
 
-| For | Use |
-|---|---|
+| For            | Use             |
+|----------------|-----------------|
 | Default border | `border-border` |
-| Input border | `border-input` |
-| Focus ring | `ring-ring` |
+| Input border   | `border-input`  |
+| Focus ring     | `ring-ring`     |
 
 ### All available semantic tokens
 

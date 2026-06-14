@@ -8,39 +8,39 @@ area-chart, avatar, badge, bar-chart, bar-list, breadcrumbs, button, button-grou
 
 ## HTML element → Intent UI component mapping
 
-| Instead of | Use | Import from |
-|---|---|---|
-| `<button>` | `<Button>` | `@/components/ui/button` |
-| `<input>` | `<Input>` inside `<TextField>` for text-like values only | `@/components/ui/input`, `@/components/ui/text-field` |
-| `<input type="number">` | `<NumberInput>` inside `<NumberField>` | `@/components/ui/number-field` |
-| `<input type="date">` | `<DatePicker>` | `@/components/ui/date-picker` |
-| `<select>` | `<Select>` | `@/components/ui/select` |
-| `<textarea>` | `<Textarea>` | `@/components/ui/textarea` |
-| `<table>` | `<Table>` | `@/components/ui/table` |
-| `<a>` (standalone) | `<Link>` | `@/components/ui/link` |
-| `<dialog>` | `<Modal>` | `@/components/ui/modal` |
-| `<h1>`–`<h6>` | `<Heading>` | `@/components/ui/heading` |
-| `<p>`, `<span>` for styled text | `<Text>` | `@/components/ui/text` |
-| `<a>` inside `<Text>` | `<TextLink>` | `@/components/ui/text` |
-| `<strong>` inside `<Text>` | `<Strong>` | `@/components/ui/text` |
-| `<code>` inline | `<Code>` | `@/components/ui/text` |
-| `<label>` in forms | `<Label>` | `@/components/ui/field` |
-| `<hr>` | `<Separator>` | `@/components/ui/separator` |
-| `<nav>` breadcrumbs | `<Breadcrumbs>` | `@/components/ui/breadcrumbs` |
-| `<img>` for avatars | `<Avatar>` | `@/components/ui/avatar` |
-| Custom spinner | `<Loader>` | `@/components/ui/loader` |
-| Custom checkbox | `<Checkbox>` | `@/components/ui/checkbox` |
-| Custom radio | `<Radio>` | `@/components/ui/radio` |
-| Custom switch/toggle | `<Switch>` | `@/components/ui/switch` |
-| Custom tooltip | `<Tooltip>` | `@/components/ui/tooltip` |
-| Custom tabs | `<Tabs>` | `@/components/ui/tabs` |
-| Custom dropdown | `<Dropdown>` | `@/components/ui/dropdown` |
-| Custom popover | `<Popover>` | `@/components/ui/popover` |
-| Custom modal/dialog | `<Modal>` / `<Dialog>` | `@/components/ui/modal` / `@/components/ui/dialog` |
-| Custom card | `<Card>` | `@/components/ui/card` |
-| Custom badge/tag | `<Badge>` | `@/components/ui/badge` |
-| Custom skeleton | `<Skeleton>` | `@/components/ui/skeleton` |
-| Custom progress | `<ProgressBar>` | `@/components/ui/progress-bar` |
+| Instead of                      | Use                                                      | Import from                                           |
+|---------------------------------|----------------------------------------------------------|-------------------------------------------------------|
+| `<button>`                      | `<Button>`                                               | `@/components/ui/button`                              |
+| `<input>`                       | `<Input>` inside `<TextField>` for text-like values only | `@/components/ui/input`, `@/components/ui/text-field` |
+| `<input type="number">`         | `<NumberInput>` inside `<NumberField>`                   | `@/components/ui/number-field`                        |
+| `<input type="date">`           | `<DatePicker>`                                           | `@/components/ui/date-picker`                         |
+| `<select>`                      | `<Select>`                                               | `@/components/ui/select`                              |
+| `<textarea>`                    | `<Textarea>`                                             | `@/components/ui/textarea`                            |
+| `<table>`                       | `<Table>`                                                | `@/components/ui/table`                               |
+| `<a>` (standalone)              | `<Link>`                                                 | `@/components/ui/link`                                |
+| `<dialog>`                      | `<Modal>`                                                | `@/components/ui/modal`                               |
+| `<h1>`–`<h6>`                   | `<Heading>`                                              | `@/components/ui/heading`                             |
+| `<p>`, `<span>` for styled text | `<Text>`                                                 | `@/components/ui/text`                                |
+| `<a>` inside `<Text>`           | `<TextLink>`                                             | `@/components/ui/text`                                |
+| `<strong>` inside `<Text>`      | `<Strong>`                                               | `@/components/ui/text`                                |
+| `<code>` inline                 | `<Code>`                                                 | `@/components/ui/text`                                |
+| `<label>` in forms              | `<Label>`                                                | `@/components/ui/field`                               |
+| `<hr>`                          | `<Separator>`                                            | `@/components/ui/separator`                           |
+| `<nav>` breadcrumbs             | `<Breadcrumbs>`                                          | `@/components/ui/breadcrumbs`                         |
+| `<img>` for avatars             | `<Avatar>`                                               | `@/components/ui/avatar`                              |
+| Custom spinner                  | `<Loader>`                                               | `@/components/ui/loader`                              |
+| Custom checkbox                 | `<Checkbox>`                                             | `@/components/ui/checkbox`                            |
+| Custom radio                    | `<Radio>`                                                | `@/components/ui/radio`                               |
+| Custom switch/toggle            | `<Switch>`                                               | `@/components/ui/switch`                              |
+| Custom tooltip                  | `<Tooltip>`                                              | `@/components/ui/tooltip`                             |
+| Custom tabs                     | `<Tabs>`                                                 | `@/components/ui/tabs`                                |
+| Custom dropdown                 | `<Dropdown>`                                             | `@/components/ui/dropdown`                            |
+| Custom popover                  | `<Popover>`                                              | `@/components/ui/popover`                             |
+| Custom modal/dialog             | `<Modal>` / `<Dialog>`                                   | `@/components/ui/modal` / `@/components/ui/dialog`    |
+| Custom card                     | `<Card>`                                                 | `@/components/ui/card`                                |
+| Custom badge/tag                | `<Badge>`                                                | `@/components/ui/badge`                               |
+| Custom skeleton                 | `<Skeleton>`                                             | `@/components/ui/skeleton`                            |
+| Custom progress                 | `<ProgressBar>`                                          | `@/components/ui/progress-bar`                        |
 
 ## Text, TextLink, Strong, and Code
 

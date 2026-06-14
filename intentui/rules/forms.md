@@ -80,7 +80,9 @@ Fieldset uses `[&>*+[data-slot=control]]:mt-6` for spacing. TextField and other 
   </TextField>
 
   <div data-slot="control" className="flex items-center justify-between">
-    <Checkbox name="remember">Remember me</Checkbox>
+    <CheckboxField name="remember">
+      <Checkbox>Remember me</Checkbox>
+    </CheckboxField>
     <Link href="/forgot-password" className="text-sm">
       Forgot password?
     </Link>
@@ -89,7 +91,9 @@ Fieldset uses `[&>*+[data-slot=control]]:mt-6` for spacing. TextField and other 
 
 // ❌ Wrong — div without data-slot="control" won't get Fieldset spacing
 <div className="flex items-center justify-between">
-  <Checkbox name="remember">Remember me</Checkbox>
+  <CheckboxField name="remember">
+    <Checkbox>Remember me</Checkbox>
+  </CheckboxField>
   <Link href="/forgot-password" className="text-sm">
     Forgot password?
   </Link>
@@ -318,32 +322,74 @@ import { ComboBox, ComboBoxInput, ComboBoxContent, ComboBoxItem } from "@/compon
 | `onSelectionChange` | `onChange` |
 | `defaultSelectedKey` | `defaultValue` |
 
+## Checkbox, Radio, Switch — the control only holds the label
+
+This is the single most important rule for these three components: **`Checkbox`, `Radio`, and `Switch` render only the label text.** Every prop — `name`, `value`, `isSelected`, `defaultSelected`, `onChange`, `isDisabled`, `isRequired`, `isInvalid`, `isReadOnly`, `isIndeterminate` — goes on the wrapper `CheckboxField` / `RadioField` / `SwitchField`. This applies even to a **single** control, not just groups.
+
+```tsx
+// ❌ Wrong — props on the control itself
+<Checkbox name="remember">Remember me</Checkbox>
+<Radio value="free">Free</Radio>
+<Switch isSelected={on} name="dark">Dark mode</Switch>
+
+// ✅ Right — props on the *Field wrapper, label inside the control
+<CheckboxField name="remember"><Checkbox>Remember me</Checkbox></CheckboxField>
+<RadioField value="free"><Radio>Free</Radio></RadioField>
+<SwitchField isSelected={on} name="dark"><Switch>Dark mode</Switch></SwitchField>
+```
+
 ## Checkbox
 
 ```tsx
-import { Checkbox, CheckboxGroup } from "@/components/ui/checkbox"
+import { Checkbox, CheckboxField, CheckboxGroup } from "@/components/ui/checkbox"
+import { Label } from "@/components/ui/field"
 
-// ✅ Single checkbox
-<Checkbox>Accept terms</Checkbox>
+// ✅ Single checkbox — wrap in CheckboxField (name on the field)
+<CheckboxField name="terms">
+  <Checkbox>Accept terms</Checkbox>
+</CheckboxField>
 
-// ✅ Checkbox group
+// ✅ Checkbox group — value on each CheckboxField, label inside Checkbox
+<CheckboxGroup defaultValue={["music"]} name="interests">
+  <Label>Interests</Label>
+  <CheckboxField value="music">
+    <Checkbox>Music</Checkbox>
+  </CheckboxField>
+  <CheckboxField value="sports">
+    <Checkbox>Sports</Checkbox>
+  </CheckboxField>
+</CheckboxGroup>
+
+// ❌ Wrong — value/name on <Checkbox>, no CheckboxField wrapper
 <CheckboxGroup>
   <Label>Interests</Label>
   <Checkbox value="music">Music</Checkbox>
-  <Checkbox value="sports">Sports</Checkbox>
 </CheckboxGroup>
 ```
 
 ## Radio
 
-```tsx
-import { Radio, RadioGroup } from "@/components/ui/radio"
+Each option is wrapped in a `RadioField` and the **`value` goes on the `RadioField`**, not the `Radio`. The `Radio` just holds the label.
 
-// ✅ Correct
+```tsx
+import { Radio, RadioField, RadioGroup } from "@/components/ui/radio"
+import { Label } from "@/components/ui/field"
+
+// ✅ Correct — value on RadioField, label inside Radio
+<RadioGroup defaultValue="free">
+  <Label>Plan</Label>
+  <RadioField value="free">
+    <Radio>Free</Radio>
+  </RadioField>
+  <RadioField value="pro">
+    <Radio>Pro</Radio>
+  </RadioField>
+</RadioGroup>
+
+// ❌ Wrong — value does not go on <Radio>, and there's no RadioField
 <RadioGroup>
   <Label>Plan</Label>
   <Radio value="free">Free</Radio>
-  <Radio value="pro">Pro</Radio>
 </RadioGroup>
 ```
 
@@ -391,45 +437,90 @@ import { NumberInput } from "@/components/ui/number-field"
 
 ## Search field
 
-```tsx
-import { SearchField } from "@/components/ui/search-field"
+Two valid inputs inside `SearchField`:
 
-// ✅ Correct
+- **`SearchInput`** (from `@/components/ui/search-field`) — includes a magnifier icon and a clear (✕) button. Use this for the standard search look.
+- **`Input`** (from `@/components/ui/input`) — a plain input with no icon. Use this when you don't want the magnifier/clear affordances.
+
+```tsx
+import { SearchField, SearchInput } from "@/components/ui/search-field"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/field"
+
+// ✅ Standard search field with icon + clear button
 <SearchField>
   <Label>Search</Label>
+  <SearchInput />
+</SearchField>
+
+// ✅ Plain search field (no icon) — use Input
+<SearchField aria-label="Search">
   <Input />
+</SearchField>
+
+// ✅ No visible label — provide aria-label
+<SearchField aria-label="Search" value={value} onChange={setValue}>
+  <SearchInput />
 </SearchField>
 ```
 
 ## Switch
 
+Wrap `Switch` in a `SwitchField` for form integration (name, value, controlled state, description). Put the label text inside `Switch`.
+
 ```tsx
-import { Switch } from "@/components/ui/switch"
+import { Switch, SwitchField } from "@/components/ui/switch"
 
 // ✅ Correct
-<Switch>Enable notifications</Switch>
+<SwitchField name="notifications">
+  <Switch>Enable notifications</Switch>
+</SwitchField>
+
+// ✅ Controlled
+<SwitchField isSelected={enabled} onChange={setEnabled} name="notifications">
+  <Switch>Enable notifications</Switch>
+</SwitchField>
 ```
 
 ## Date & Time
 
+Each date/time component pairs with its own input/trigger subcomponent:
+
+- `DatePicker` → `DatePickerTrigger`
+- `DateRangePicker` → `DateRangePickerTrigger`
+- `DateField` / `TimeField` → `DateInput` (from `@/components/ui/date-field`)
+
 ```tsx
-import { DatePicker } from "@/components/ui/date-picker"
-import { DateRangePicker } from "@/components/ui/date-range-picker"
+import { DatePicker, DatePickerTrigger } from "@/components/ui/date-picker"
+import { DateRangePicker, DateRangePickerTrigger } from "@/components/ui/date-range-picker"
 import { TimeField } from "@/components/ui/time-field"
+import { DateInput } from "@/components/ui/date-field"
 import { FieldError, Label } from "@/components/ui/field"
 
-// ✅ Correct
+// ✅ DatePicker
 <DatePicker name="startDate">
   <Label>Start date</Label>
   <DatePickerTrigger />
 </DatePicker>
 
-// ✅ Required
+// ✅ DatePicker — required (include FieldError)
 <DatePicker isRequired name="startDate">
   <Label>Start date</Label>
   <DatePickerTrigger />
   <FieldError />
 </DatePicker>
+
+// ✅ DateRangePicker
+<DateRangePicker name="range">
+  <Label>Dates</Label>
+  <DateRangePickerTrigger />
+</DateRangePicker>
+
+// ✅ TimeField — uses DateInput
+<TimeField name="time">
+  <Label>Time</Label>
+  <DateInput />
+</TimeField>
 
 // ❌ Wrong — do not use TextField/Input type="date" for dates
 <TextField name="startDate">

@@ -1,33 +1,37 @@
 # CLI Rules
 
-When a required component or block does NOT exist locally, use the shadcn CLI to search and install it from the registry.
+When a required component or block does NOT exist locally, use the shadcn CLI to search and install it from the
+registry.
 
 ## Step 1: Detect the package runner
 
 Check which lockfile exists in the project root to determine the correct runner:
 
-| Lockfile | Runner |
-|---|---|
+| Lockfile                  | Runner       |
+|---------------------------|--------------|
 | `bun.lock` or `bun.lockb` | `bunx --bun` |
-| `pnpm-lock.yaml` | `pnpx` |
-| `package-lock.json` | `npx` |
-| `yarn.lock` | `npx` |
+| `pnpm-lock.yaml`          | `pnpx`       |
+| `package-lock.json`       | `npx`        |
+| `yarn.lock`               | `npx`        |
 
 ## Step 2: Detect the registry name
 
 Read `components.json` and check if a `registries` key exists.
 
 - **If `registries` exists** — use the first key defined there (e.g. `@irsyad`, `@acme`, `@intentui`, etc.)
-- **If `registries` does NOT exist** — use `@intentui` as the default. Do NOT modify `components.json` to add a registry.
+- **If `registries` does NOT exist** — use `@intentui` as the default. Do NOT modify `components.json` to add a
+  registry.
 
-IMPORTANT: Never add or modify the `registries` key in `components.json`. Just read it — if it's there, use it. If it's not, default to `@intentui`.
+IMPORTANT: Never add or modify the `registries` key in `components.json`. Just read it — if it's there, use it. If it's
+not, default to `@intentui`.
 
 ## Step 3: Search the registry
 
 The registry has two types of items:
 
 - **`registry:ui`** — foundational components (button, tabs, modal, etc.) installed to `src/components/ui/`
-- **`registry:block`** — ready-made page sections and patterns (sign-in forms, settings pages, dashboards, shopping carts, etc.)
+- **`registry:block`** — ready-made page sections and patterns (sign-in forms, settings pages, dashboards, shopping
+  carts, etc.)
 
 ### Searching for components
 
@@ -40,7 +44,8 @@ bunx --bun shadcn@latest search @intentui -q "modal"
 
 ### Searching for blocks (pages, sections, features)
 
-When the user asks for a page or feature (e.g. "login page", "dashboard", "settings page"), **search the registry using their exact terms**:
+When the user asks for a page or feature (e.g. "login page", "dashboard", "settings page"), **search the registry using
+their exact terms**:
 
 ```bash
 # User asks for "dashboard" → search "dashboard"
@@ -53,9 +58,11 @@ bunx --bun shadcn@latest search @intentui -q "login"
 bunx --bun shadcn@latest search @intentui -q "settings"
 ```
 
-Look at the results — items with `"type": "registry:block"` are page blocks, items with `"type": "registry:ui"` are components. Pick the one that best matches what the user needs.
+Look at the results — items with `"type": "registry:block"` are page blocks, items with `"type": "registry:ui"` are
+components. Pick the one that best matches what the user needs.
 
-If the first search doesn't return relevant results, try broader or alternative keywords. You can also list all available blocks by searching with a broad term and filtering results by `"type": "registry:block"`.
+If the first search doesn't return relevant results, try broader or alternative keywords. You can also list all
+available blocks by searching with a broad term and filtering results by `"type": "registry:block"`.
 
 ## Step 4: Install
 
